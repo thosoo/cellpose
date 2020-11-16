@@ -131,7 +131,7 @@ def main():
             if (len(args.dir)>0 and len(args.file)==0):
                 image_names = io.get_image_files(args.dir, args.mask_filter, imf=imf)
             if (len(args.file)>0 and len(args.dir)==0):
-                image_names = io.get_image(args.file, args.mask_filter, imf=imf)
+                image_names = args.file
             nimg = len(image_names)
             images = [io.imread(image_names[n]) for n in range(nimg)]
 
