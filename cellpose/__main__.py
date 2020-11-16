@@ -26,7 +26,7 @@ def main():
     parser.add_argument('--train', action='store_true', help='train network using images in dir')
     parser.add_argument('--dir', required=False, 
                         default=[], type=str, help='folder containing data to run or train on')
-    parser.add_argument('--false', required=False, 
+    parser.add_argument('--file', required=False, 
                         default=[], type=str, help='file to run or train on')
     parser.add_argument('--img_filter', required=False, 
                         default=[], type=str, help='end string for images to run on')
