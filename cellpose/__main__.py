@@ -130,10 +130,13 @@ def main():
                     args.pretrained_model = 'cyto'
             if (len(args.dir)>0 and len(args.file)==0):
                 image_names = io.get_image_files(args.dir, args.mask_filter, imf=imf)
+                nimg = len(image_names)
+                images = [io.imread(image_names[n]) for n in range(nimg)]
             if (len(args.file)>0 and len(args.dir)==0):
                 image_names = args.file
-            nimg = len(image_names)
-            images = [io.imread(image_names[n]) for n in range(nimg)]
+                nimg = 1
+                images = io.imread(image_names)
+            
 
             if args.pretrained_model=='cyto' or args.pretrained_model=='nuclei':
                 model = models.Cellpose(device=device, model_type=args.pretrained_model)
