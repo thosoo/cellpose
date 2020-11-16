@@ -79,6 +79,26 @@ def get_image_files(folder, mask_filter, imf=None):
     image_names = imn
     
     return image_names
+
+def get_image(file, mask_filter, imf=None):
+    mask_filters = ['_cp_masks', '_cp_output', '_flows', mask_filter]
+    image_names = []
+    if imf is None:
+        imf = ''
+    image_names.extend(file)
+    image_names = natsorted(image_names)
+    imn = []
+    for im in image_names:
+        imfile = os.path.splitext(im)[0]
+        igood = all([(len(imfile) > len(mask_filter) and imfile[-len(mask_filter):] != mask_filter) or len(imfile) < len(mask_filter) 
+                        for mask_filter in mask_filters])
+        if len(imf)>0:
+            igood &= imfile[-len(imf):]==imf
+        if igood:
+            imn.append(im)
+    image_names = imn
+    
+    return image_names
         
 def get_label_files(image_names, mask_filter, imf=None):
     nimg = len(image_names)

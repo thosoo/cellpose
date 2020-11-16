@@ -26,6 +26,8 @@ def main():
     parser.add_argument('--train', action='store_true', help='train network using images in dir')
     parser.add_argument('--dir', required=False, 
                         default=[], type=str, help='folder containing data to run or train on')
+    parser.add_argument('--false', required=False, 
+                        default=[], type=str, help='file to run or train on')
     parser.add_argument('--img_filter', required=False, 
                         default=[], type=str, help='end string for images to run on')
     parser.add_argument('--use_gpu', action='store_true', help='use gpu if mxnet with cuda installed')
@@ -89,7 +91,7 @@ def main():
     
     import mxnet as mx
 
-    if len(args.dir)==0:
+    if (len(args.dir)==0 and len(args.file)==0):
         if not GUI_ENABLED:
             print('ERROR: %s'%GUI_ERROR)
             if GUI_IMPORT:
@@ -126,8 +128,10 @@ def main():
                 if not os.path.exists(cpmodel_path):
                     print('model path does not exist, using cyto model')
                     args.pretrained_model = 'cyto'
-
-            image_names = io.get_image_files(args.dir, args.mask_filter, imf=imf)
+            if (len(args.dir)>0 and len(args.file)==0):
+                image_names = io.get_image_files(args.dir, args.mask_filter, imf=imf)
+            if (len(args.file)>0 and len(args.dir)==0):
+                image_names = io.get_image(args.file, args.mask_filter, imf=imf)
             nimg = len(image_names)
             images = [io.imread(image_names[n]) for n in range(nimg)]
 

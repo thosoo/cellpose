@@ -96,6 +96,7 @@ You can run the help string and see all the options:
     --train               train network using images in dir (not yet
                             implemented)
     --dir DIR             folder containing data to run or train on
+    --file file           file to run or train on
     --img_filter IMG_FILTER
                             end string for images to run on
     --use_gpu             use gpu if mxnet with cuda installed
